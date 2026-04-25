@@ -72,9 +72,21 @@ export function buildWoT () : void {
             const currentHop = parseInt(subId.split("-")[1], 10);
             const nextHop = currentHop + 1;
             const hopDuration = Date.now() - hopStartTime;
+            
+            const nextTargets = new Set<string>();
+            for (const follows of followGraph.values()) {
+              for (const f of follows) {
+                if (!visited.has(f)){
+                  visited.add(f);
+                  nextTargets.add(f);
+                }
+              }
+            }
+
             console.log(
                 `Hop ${currentHop} done in ${hopDuration}ms: ${eventsThisHop} contact list(s) · ${totalEdges} total edges · ${visited.size} unique pubkeys so far`
             );
+
             eventsThisHop = 0;
 
             if (nextHop > MAX_HOPS) {
@@ -90,15 +102,7 @@ export function buildWoT () : void {
                 return;
             }
 
-            const nextTargets = new Set<string>();
-            for (const follows of followGraph.values()) {
-                for (const f of follows) {
-                    if (!visited.has(f)){
-                        visited.add(f);
-                        nextTargets.add(f);
-                    }
-                }
-            }
+            
 
             if (nextTargets.size === 0) {
                 
