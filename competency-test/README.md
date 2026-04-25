@@ -144,12 +144,7 @@ Exports the follow graph as an interactive HTML page using **vis-network**:
    cd /path/to/nostream
    ```
 
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
-
-3. **Install competency-test dependencies:**
+2. **Install competency-test dependencies:**
    ```bash
    cd competency-test
    npm install
@@ -164,12 +159,12 @@ Exports the follow graph as an interactive HTML page using **vis-network**:
 
 ### Run the CLI
 ```bash
-npm run start
+npm run cli
 ```
 
 ### Build Web of Trust
 ```bash
-npm run start
+npm run cli
 # Select option 1
 ```
 
@@ -181,9 +176,9 @@ This will:
 
 ### Verify Event PoW
 ```bash
-npm run start
+npm run cli
 # Select option 2
-# Paste a Nostr event JSON
+# Paste a Nostr event JSON in one line without breaks
 ```
 
 Example event (kind 1 with PoW):
