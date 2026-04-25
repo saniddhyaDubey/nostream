@@ -183,7 +183,7 @@ npm run cli
 
 Example event (kind 1 with PoW):
 ```json
-{"id":"0000000000000000000000000000000000000000000000000000000000000000","pubkey":"3bf0c63fcb93463407af97a5e5ee64fa883d107ef9e558472c4eb9aaaefa459d","kind":1,"tags":[["nonce","1000000","20"]],"content":"Hello, Nostr!","created_at":1672531200,"sig":"6b3144707a52dc5fbc6e0f0f6c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c"}
+{"id":"0000000000000000000000000000000000000000000000000000000000000000","pubkey":"3bf0c63fcb93463407af97a5e5ee64fa883d107ef9e558472c4eb9aaaefa459d","kind":1,"tags":[["nonce" ,"1000000","20"]],"content":"Hello, Nostr!","created_at":1672531200,"sig":"6b3144707a52dc5fbc6e0f0f6c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c"}
 ```
 
 ## Technical Details
@@ -211,6 +211,15 @@ Example event (kind 1 with PoW):
 - Hop 2: ~8 seconds (1771 users fetched)
 - Total: ~12 seconds end-to-end
 - Memory: < 50MB for 2k+ node graphs
+
+### Testing
+
+Unit tests cover the pure functions: `parseFollowList`, `countLeadingZeroBits`, and `verifyEventPow`.
+
+```bash
+cd competency-test
+npm run test
+```
 
 ## Author
 

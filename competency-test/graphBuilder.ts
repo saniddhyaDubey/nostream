@@ -1,12 +1,14 @@
 import { resolve } from "path";
 import { writeFileSync } from "fs";
 
+// Exports the follow graph to an interactive HTML file using vis.js for visualization.
 export function exportGraphToHtml(
   followGraph: Map<string, string[]>,
   seedHex: string,
   outPath: string = "wot-graph.html"
 ): void {
 
+    // Prepare nodes and edges for vis.js
     const nodes: { id: string; label: string; color: string; size: number }[] = [];
     const edges: { from: string; to: string }[] = [];
     const seen = new Set<string>();
