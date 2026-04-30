@@ -2,7 +2,7 @@ import { check } from 'k6';
 import { Counter } from 'k6/metrics';
 import ws from 'k6/ws';
 
-const relayUrl = 'ws://127.0.0.1:8008';
+const relayUrl = __ENV.RELAY_URL || 'ws://127.0.0.1:8008';
 const noticeCounter = new Counter('notice_messages');
 const eoseCounter = new Counter('eose_messages');
 const eventCounter = new Counter('event_messages');
@@ -18,7 +18,7 @@ export const options = {
 };
 
 export default function () {
-  const res = ws.connect(relayUrl, null, function (socket) {
+  const res = ws.connect(relayUrl, {}, function (socket) {
     socket.on('open', function () {
       let msgCount = 0;
       socket.setInterval(function () {

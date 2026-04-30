@@ -2,7 +2,7 @@ import { check, sleep } from 'k6';
 import { Counter } from 'k6/metrics';
 import ws from 'k6/ws';
 
-const relayUrl = 'ws://127.0.0.1:8008';
+const relayUrl = __ENV.RELAY_URL || 'ws://127.0.0.1:8008';
 const connectionSuccess = new Counter('connection_success');
 const connectionRateLimited = new Counter('connection_rate_limited');
 
@@ -20,12 +20,13 @@ export const options = {
 };
 
 export default function () {
-  let socketClosed = false;
   
   const res = ws.connect(relayUrl, {}, function (socket) {
+    let intentionalClose = false
     socket.on('close', () => {
-      socketClosed = true;
-      connectionRateLimited.add(1);
+      if(!intentionalClose) {
+        connectionRateLimited.add(1);
+      }
     });
     
     socket.on('open', () => {
@@ -33,9 +34,8 @@ export default function () {
     });
     
     socket.setTimeout(() => {
-      if (!socketClosed) {
-        socket.close();
-      }
+      intentionalClose = true;
+      socket.close();
     }, 3000);
   });
   
